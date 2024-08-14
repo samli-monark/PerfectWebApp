@@ -10,13 +10,13 @@ namespace PerfectWebApp.Web.Controllers
         private const string SprocketConnectionString = "Server=...";
         private readonly ILogger<ProductsController> _logger;
         private readonly IWidgetRepository _widgetRepository;
-        private readonly SprocketRepository _sprocketRepository;
+        private readonly SprocketRepository _sp;
 
         public ProductsController(ILogger<ProductsController> logger, IWidgetRepository widgetRepository)
         {
             _logger = logger;
             _widgetRepository = widgetRepository;
-            _sprocketRepository = new SprocketRepository(SprocketConnectionString);
+            _sp = new SprocketRepository(SprocketConnectionString);
         }
 
         public IActionResult Index()
@@ -32,9 +32,9 @@ namespace PerfectWebApp.Web.Controllers
 
         public async Task<IActionResult> Sprockets()
         {
-            var sprockets = await _sprocketRepository.GetSprocketsAsync();
-            Process(sprockets.ToList());
-            return View(sprockets);
+            var s = await _sp.GetSprocketsAsync();
+            Process(s.ToList());
+            return View(s);
         }
 
         private async void Process(List<Sprocket> sprockets)
