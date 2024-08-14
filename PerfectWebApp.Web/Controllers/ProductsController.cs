@@ -37,9 +37,9 @@ namespace PerfectWebApp.Web.Controllers
             return View(s);
         }
 
-        private async void Process(List<Sprocket> sprockets)
+        private async void Process(List<Sprocket> l)
         {
-            foreach (var s in sprockets)
+            foreach (var s in l)
             {
                 if (s.Description.Contains("flange"))
                 {
@@ -48,9 +48,31 @@ namespace PerfectWebApp.Web.Controllers
                 }
                 else
                 {
-                    // process sprocket
-                    await Task.Delay(500);
+                    // process non-flange
+                    s.ImageBytes = GetImg(s.ImageFile);
                 }
+            }
+        }
+
+        private byte[] GetImg(string imageFile)
+        {
+            // get image from file
+            var st = new FileStream(imageFile, FileMode.Open);
+
+            try
+            {
+                var buffer = new byte[st.Length];
+                st.Read(buffer, 0, buffer.Length);
+                return buffer;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                return Array.Empty<byte>();
+            }
+            finally
+            {
+                st.Dispose();
             }
         }
     }
