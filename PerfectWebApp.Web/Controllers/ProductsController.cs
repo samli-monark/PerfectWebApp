@@ -65,9 +65,8 @@ namespace PerfectWebApp.Web.Controllers
                 st.Read(buffer, 0, buffer.Length);
                 return buffer;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "");
                 return Array.Empty<byte>();
             }
             finally
