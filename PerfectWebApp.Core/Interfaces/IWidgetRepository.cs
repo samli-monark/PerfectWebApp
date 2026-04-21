@@ -1,4 +1,3 @@
-﻿
 using PerfectWebApp.Core.Entities;
 
 namespace PerfectWebApp.Core.Interfaces
@@ -10,5 +9,7 @@ namespace PerfectWebApp.Core.Interfaces
         void AddWidget(Widget widget);
         void UpdateWidget(Widget widget);
         void DeleteWidget(int id);
+
+        Task<List<Widget>> GetAllWidgets();
     }
 }

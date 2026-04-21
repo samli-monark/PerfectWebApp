@@ -1,0 +1,28 @@
+@model IEnumerable<PerfectWebApp.Core.Entities.Widget>
+@{
+    ViewData["Title"] = "Widgets";
+}
+
+<h1>Widgets</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var widget in Model)
+        {
+            <tr>
+                <td>@widget.Id</td>
+                <td>@widget.Name</td>
+                <td>@widget.Price</td>
+                <td>@widget.CreatedDate.ToString("G")</td>
+            </tr>
+        }
+    </tbody>
+</table>

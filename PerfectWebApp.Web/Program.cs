@@ -9,13 +9,15 @@ namespace PerfectWebApp.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddControllersWithViews();
+
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 
-            var widgetConnectionString = config.GetConnectionString("Widget");
+            var widgetConnectionString = config.GetConnectionString("Widgets");
 
-            builder.Services.AddScoped<IWidgetRepository, WidgetRepository>(provider =>
+            builder.Services.AddSingleton<IWidgetRepository, WidgetRepository>(provider =>
             {
                 return new WidgetRepository(widgetConnectionString);
             });
