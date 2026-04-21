@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PerfectWebApp.Core.Interfaces;
 
 namespace PerfectWebApp.Web.Controllers
@@ -21,8 +21,14 @@ namespace PerfectWebApp.Web.Controllers
 
         public IActionResult Widgets()
         {
-            var widgets = _widgetRepository.GetWidgets();
+            var widgets = _widgetRepository.GetAllWidgets().Result;
             return View(widgets);
+        }
+
+        public async void LogWidgetCount()
+        {
+            var widgets = await _widgetRepository.GetAllWidgets();
+            _logger.LogInformation("Total widgets: " + widgets.Count);
         }
     }
 }
